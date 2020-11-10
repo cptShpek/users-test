@@ -1,0 +1,6 @@
+  export const appActionsType = {
+  GET_ALL_USERS: "GET_USERS",
+  ADD_NEW_USER: "ADD_NEW_USER",
+  DELETE_USER: "DELETE_USER",
+  UPDATE_USER: "UPDATE_USER",
+};
