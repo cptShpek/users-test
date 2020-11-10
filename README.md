@@ -1,4 +1,4 @@
-# Userss app
+# Users app
 
 * git clone the repo
 * push da tempo
