@@ -3,8 +3,6 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import UserDetailsPage from "./pages/UserDetailsPage";
 
-
-
 class App extends Component {
   render() {
     return (

@@ -1,4 +1,4 @@
-  export const appActionsType = {
+export const appActionsType = {
   GET_ALL_USERS: "GET_ALL_USERS",
   GET_CURRENT_USER: "GET_CURRENT_USER",
   PAGINATION: "PAGINATION",

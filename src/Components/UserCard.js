@@ -1,21 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {pagination} from "../store/actions/actions";
+import {pagination} from "../actions";
 import {deleteUser} from "../requests/index";
 import no_avatar from "../img/no_avatar.png";
 
-function UserCard(props) {
-  var {id, name, surname, desc, avatar} = props;
-  if (props.avatar === null) {
+function UserCard({id, name, surname, desc, avatar, pagination}) {
+  if (avatar === null) {
     avatar = no_avatar;
   } else {
-    avatar = props.avatar
+    avatar = avatar
   }
 
   function handleDelete(id) {
     deleteUser(id);
-    props.pagination(-100);
+    pagination(-100);
   }
 
 

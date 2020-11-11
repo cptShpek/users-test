@@ -1,10 +1,17 @@
 import {appActionsType} from "../constans";
 
-const usersReducer = (state = {currentPage: 1}, action) => {
+const initialState = {
+  users: [],
+  currentPage: 0,
+  pagesCount: 0,
+};
+
+const usersReducer = (state = initialState, action) => {
   switch(action.type){
       case appActionsType.GET_ALL_USERS:
         return {
           ...state,
+          currentPage: 1,
           users: action.users,
           pagesCount: action.pagesCount
         }

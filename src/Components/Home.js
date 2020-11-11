@@ -1,70 +1,38 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {getAllUsers} from "../store/actions/actions";
+import React, {useEffect} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {getAllUsers} from "../actions";
 import UserCard from "./UserCard";
 import Pagination from "./Pagination";
 
-class Home extends Component {
+function Home() {
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.users || []);
+  const currentPage = useSelector(state => state.currentPage);
 
-  componentDidMount() {
-    this.props.getAllUsers()
-  }
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
 
-  render() {
-    const users = this.props.users || [];
-    const {currentPage} = this.props
-    return(
-      <div className="container-fluid">
-          <div className="row">
-            {users.length > 0 ? users.map((user, index) => {
-                if (currentPage === 1) {
-                  if (index < 5) {
-                    return (
-                      <UserCard 
-                        key = {user.id}
-                        id={user.id}
-                        name={user.name}
-                        surname={user.surname}
-                        desc={user.desc}
-                        avatar={user.avatar}
-                      />
-                    )
-                  }
-                } else if (index <= currentPage * 4 + 1 && index > currentPage * 4 - 4) {
-                  return (
-                    <UserCard 
-                      key = {user.id}
-                      id={user.id} 
-                      name={user.name}
-                      surname={user.surname}
-                      desc={user.desc}
-                      avatar={user.avatar}
-                    />
-                  )
-                }
-              })
-              :
-              <p>Wait for a moment please...</p>}
-        </div>
-        <Pagination />
+  const usersOnPage = users.slice(currentPage * 5 - 5, currentPage * 5);
+  
+  return(
+    <div className="container-fluid">
+        <div className="row">
+          {usersOnPage.length > 0 ? usersOnPage.map((user) => 
+            (<UserCard 
+              key = {user.id}
+              id={user.id} 
+              name={user.name}
+              surname={user.surname}
+              desc={user.desc}
+              avatar={user.avatar}
+            />))
+            :
+            <p>Wait for a moment please...</p>}
       </div>
-    )
-  }
+      <Pagination />
+    </div>
+  )
 };
 
-const mapStateToProps = (state) =>{
-  const {pagesCount, users, currentPage} = state
-  return {
-      users,
-      pagesCount,
-      currentPage
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return{
-      getAllUsers: () => dispatch(getAllUsers()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home;
