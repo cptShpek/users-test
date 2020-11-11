@@ -1,24 +1,24 @@
-import React from "react";
-import {updateUser, addUser} from "../requests/index";
+import React from 'react';
+import { updateUser, addUser } from '../requests/index';
 
 function UserDetails(props) {
   function clickHandler(e) {
-    e.preventDefault()
+    e.preventDefault();
     const updatedUser = {
-      name: document.getElementById('name').value || "No Name",
-      surname: document.getElementById('surname').value  || "No Surname",
-      desc: document.getElementById('desc').value || "No description",
-      avatar: document.getElementById('avatar').value  || null,
-    }
+      name: document.getElementById('name').value || 'No Name',
+      surname: document.getElementById('surname').value || 'No Surname',
+      desc: document.getElementById('desc').value || 'No description',
+      avatar: document.getElementById('avatar').value || null,
+    };
 
-    if (props.history.location.pathname === "/add-user") {
+    if (props.history.location.pathname === '/add-user') {
       updatedUser.id = Math.floor(Math.random() * 1000000000);
-      addUser( updatedUser)
+      addUser(updatedUser);
     } else {
       updatedUser.id = props.userId;
-      updateUser(props.userId, updatedUser)
+      updateUser(props.userId, updatedUser);
     }
-    props.history.push("/")
+    props.history.push('/');
   }
 
   return (
@@ -40,10 +40,12 @@ function UserDetails(props) {
           <label htmlFor="formGroupExampleInput2">New Avatar</label>
           <input type="url" className="form-control" id="avatar" placeholder="http://new-avatar.com" />
         </div>
-        <button type="submit" onClick={clickHandler} className="btn btn-primary">Submit</button>
+        <button type="submit" onClick={clickHandler} className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
-  )
-};
+  );
+}
 
-export default UserDetails
+export default UserDetails;

@@ -1,29 +1,29 @@
-import React, {useEffect} from "react";
-import {connect} from "react-redux";
-import {pagination} from "../actions";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { pagination } from '../actions';
 
-const Pagination = function(props) {
+const Pagination = (props) => {
   useEffect(() => {
-    const clickHandler = function(e) {
+    const clickHandler = function (e) {
       switch (e.target.name) {
-        case "next" :
-          props.pagination(1)
-          break
-        case "prev" :
-          props.pagination(-1)
-          break
-        default: return
+        case 'next':
+          props.pagination(1);
+          break;
+        case 'prev':
+          props.pagination(-1);
+          break;
+        default:
       }
-    }
-    const btns = document.getElementsByClassName("page-link");
+    };
+    const btns = document.getElementsByClassName('page-link');
     function propaginations() {
-      Array.from(btns).forEach(btn => btn.addEventListener('click', clickHandler))
+      Array.from(btns).forEach((btn) => btn.addEventListener('click', clickHandler));
     }
-    propaginations()
-    return function() {
-      Array.from(btns).forEach(btn => btn.removeEventListener('click', clickHandler))
-    }
-  }, [])
+    propaginations();
+    return function () {
+      Array.from(btns).forEach((btn) => btn.removeEventListener('click', clickHandler));
+    };
+  }, []);
 
   return (
     <ul className="pagination pagination-lg justify-content-center">
@@ -41,11 +41,10 @@ const Pagination = function(props) {
   );
 };
 
-  
 const mapDispatchToProps = (dispatch) => {
-  return{
+  return {
     pagination: (dirrection) => dispatch(pagination(dirrection)),
   };
 };
-  
-export default connect(null, mapDispatchToProps)(Pagination)
+
+export default connect(null, mapDispatchToProps)(Pagination);

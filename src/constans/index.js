@@ -1,1 +1,1 @@
-export * from "./app.constans";
+export * from './app.constans';
