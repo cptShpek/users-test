@@ -3,7 +3,11 @@ body {
   padding: 0;
 }
 
-.btn {
+.btns-row {
   position: absolute;
   bottom: 5px;
+}
+
+a {
+  cursor: pointer;
 }
