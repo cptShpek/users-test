@@ -2,7 +2,7 @@ import React from 'react';
 import BasePage from './BasePage';
 import Home from '../Components/Home';
 
-const HomePage = function () {
+const HomePage = () => {
   return (
     <BasePage>
       <Home />

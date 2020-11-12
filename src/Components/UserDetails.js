@@ -1,29 +1,31 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { updateUser, addUser } from '../requests/index';
 
-function UserDetails(props) {
+function UserDetails({ history, userId }) {
+  const formRef = useRef(null);
+
   function clickHandler(e) {
     e.preventDefault();
     const updatedUser = {
-      name: document.getElementById('name').value || 'No Name',
-      surname: document.getElementById('surname').value || 'No Surname',
-      desc: document.getElementById('desc').value || 'No description',
-      avatar: document.getElementById('avatar').value || null,
+      name: formRef.current.querySelector('#name').value || 'No Name',
+      surname: formRef.current.querySelector('#surname').value || 'No Surname',
+      desc: formRef.current.querySelector('#desc').value || 'No description',
+      avatar: formRef.current.querySelector('#avatar').value || null,
     };
 
-    if (props.history.location.pathname === '/add-user') {
+    if (history.location.pathname === '/add-user') {
       updatedUser.id = Math.floor(Math.random() * 1000000000);
       addUser(updatedUser);
     } else {
-      updatedUser.id = props.userId;
-      updateUser(props.userId, updatedUser);
+      updatedUser.id = userId;
+      updateUser(userId, updatedUser);
     }
-    props.history.push('/');
+    history.push('/');
   }
 
   return (
-    <div className="col-sm d-flex justify-content-center">
-      <form className="mt-5">
+    <div className="d-flex justify-content-center">
+      <form ref={formRef} className="user-details mt-5">
         <div className="form-group">
           <label htmlFor="formGroupExampleInput">New Name</label>
           <input type="text" className="form-control" id="name" placeholder="John" />

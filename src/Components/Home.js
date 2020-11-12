@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 
 function Home() {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users || []);
+  const users = useSelector((state) => state.users);
   const currentPage = useSelector((state) => state.currentPage);
 
   useEffect(() => {

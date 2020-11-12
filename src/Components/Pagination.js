@@ -1,50 +1,51 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { pagination } from '../actions';
 
-const Pagination = (props) => {
+const Pagination = () => {
+  const dispatch = useDispatch();
+  const currentPage = useSelector((state) => state.currentPage);
+  const pagLinksRef = useRef();
+
   useEffect(() => {
-    const clickHandler = function (e) {
+    const clickHandler = (e) => {
       switch (e.target.name) {
         case 'next':
-          props.pagination(1);
+          dispatch(pagination(1));
           break;
         case 'prev':
-          props.pagination(-1);
+          dispatch(pagination(-1));
           break;
         default:
       }
     };
-    const btns = document.getElementsByClassName('page-link');
     function propaginations() {
-      Array.from(btns).forEach((btn) => btn.addEventListener('click', clickHandler));
+      pagLinksRef.current
+        .querySelectorAll('a.page-link')
+        .forEach((pagLink) => pagLink.addEventListener('click', clickHandler));
     }
     propaginations();
-    return function () {
-      Array.from(btns).forEach((btn) => btn.removeEventListener('click', clickHandler));
-    };
   }, []);
 
   return (
-    <ul className="pagination pagination-lg justify-content-center">
-      <li className="page-item">
-        <a className="page-link m-3" name="prev">
-          &laquo;
-        </a>
-      </li>
-      <li className="page-item">
-        <a className="page-link m-3" name="next">
-          &raquo;
-        </a>
-      </li>
-    </ul>
+    <div className="d-flex justify-content-center">
+      <ul ref={pagLinksRef} className="pagination pagination-lg justify-content-center">
+        <li className="page-item">
+          <a className="page-link" name="prev">
+            &laquo;
+          </a>
+        </li>
+        <li className="page-item disabled">
+          <span className="page-link">{currentPage}</span>
+        </li>
+        <li className="page-item">
+          <a className="page-link" name="next">
+            &raquo;
+          </a>
+        </li>
+      </ul>
+    </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    pagination: (dirrection) => dispatch(pagination(dirrection)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Pagination);
+export default Pagination;
